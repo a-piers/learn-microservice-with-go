@@ -4,4 +4,4 @@
 - [x] Generic Types
 - [x] Swagger Integrated
 - [x] Using Postgres
-- [] Twilio Integrated
+- [ ] Twilio Integrated
