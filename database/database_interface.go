@@ -11,4 +11,8 @@ type IDatabase interface {
 
 type CrudInterface interface {
 	Get(string) (any, error)
+	GetList() ([]any, error)
+	Insert(any) error
+	Update(any, interface{}) (any, error)
+	Delete(string) (any, error)
 }
