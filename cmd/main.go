@@ -43,6 +43,9 @@ func main() {
 		}
 	}()
 
+	if err := service.MakeMigrations(); err != nil {
+		log.Fatalf("Error on migrations. %s", utils.ExceptionToString(err))
+	}
 	service.InitRouters(r)
 
 	log.Printf("Server is listening on %s address...", service.ListenAddr)

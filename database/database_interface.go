@@ -3,7 +3,7 @@ package database
 import "gorm.io/gorm"
 
 type IDatabase interface {
-	AutoMigration(...interface{}) error
+	AutoMigration(interface{}) error
 	GetCursor() *gorm.DB
 	Close() error
 	Ping() error

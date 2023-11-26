@@ -41,8 +41,8 @@ func NewStorage() (*Storage, error) {
 	}, nil
 }
 
-func (stg *Storage) AutoMigration(dst ...interface{}) error {
-	if err := stg.Cursor.AutoMigrate(dst...); err != nil {
+func (stg *Storage) AutoMigration(dst interface{}) error {
+	if err := stg.Cursor.AutoMigrate(dst); err != nil {
 		return err
 	}
 

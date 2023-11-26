@@ -60,8 +60,9 @@ func (controller BaseController) Login(w http.ResponseWriter, r *http.Request) e
 		return api.WriteJSON(w, http.StatusOK, userLoginResult)
 	}
 
-	model := database.Model[models.UserModel]{}
-	model.Stg = controller.Storage.GetCursor()
+	model := database.Model[models.UserModel]{
+		Stg: controller.Storage.GetCursor(),
+	}
 	result, err := model.Get(fmt.Sprintf("email = %s", userLoginArgs.Email))
 	if err != nil {
 		userLoginResult.Result.Success = false
@@ -91,11 +92,26 @@ func (controller BaseController) Login(w http.ResponseWriter, r *http.Request) e
 		return api.WriteJSON(w, http.StatusOK, userLoginResult)
 	}
 
+	userLoginResult.Id = result.Id
 	userLoginResult.AuthenticationToken = token
+	userLoginResult.UserInfos = map[string]string{
+		"full_name":    result.FirstName + " " + result.LastName,
+		"phone_number": result.PhoneNumber,
+		"email":        result.Email,
+	}
+
 	userLoginResult.Result.Success = true
 	userLoginResult.Result.ErrorCode = ""
 	userLoginResult.Result.ErrorDescription = ""
 	userLoginResult.Result.ErrorException = ""
 
 	return api.WriteJSON(w, http.StatusOK, userLoginResult)
+}
+
+func (controller BaseController) Register(w http.ResponseWriter, r *http.Request) error {
+	if r.Method != http.MethodPost {
+		return fmt.Errorf("method not allowed %s", r.Method)
+	}
+
+	return api.WriteJSON(w, http.StatusOK, nil)
 }
