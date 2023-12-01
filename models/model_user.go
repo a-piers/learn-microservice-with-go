@@ -28,3 +28,17 @@ type UserLoginResult struct {
 }
 
 // -------------------------
+
+type UserRegisterArgs struct {
+	FirstName        string    `json:"first_name"`
+	LastName         string    `json:"last_name"`
+	PhoneNumber      string    `json:"phone_number"`
+	Email            string    `json:"email"`
+	BirthDate        time.Time `json:"birth_date"`
+	Password         string    `json:"password"`
+	ValidatePassword string    `json:"validate_password"`
+}
+
+type UserRegisterResult struct {
+	Result Result `json:"result"`
+}

@@ -58,6 +58,40 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/register": {
+            "post": {
+                "description": "Register and create account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Create a account",
+                "parameters": [
+                    {
+                        "description": "UserRegister",
+                        "name": "userModelArgs",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRegisterArgs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRegisterResult"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -95,6 +129,49 @@ const docTemplate = `{
                 "authentication_token": {
                     "type": "string"
                 },
+                "id": {
+                    "type": "string"
+                },
+                "result": {
+                    "$ref": "#/definitions/models.Result"
+                },
+                "user_infos": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.UserRegisterArgs": {
+            "type": "object",
+            "properties": {
+                "birth_date": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "validate_password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserRegisterResult": {
+            "type": "object",
+            "properties": {
                 "result": {
                     "$ref": "#/definitions/models.Result"
                 }
@@ -106,13 +183,23 @@ const docTemplate = `{
                 "ERR0303",
                 "ERR0304",
                 "ERR0401",
-                "ERR0405"
+                "ERR0402",
+                "ERR0403",
+                "ERR0404",
+                "ERR0405",
+                "ERR0406",
+                "ERR0407"
             ],
             "x-enum-varnames": [
                 "ERR0303",
                 "ERR0304",
                 "ERR0401",
-                "ERR0405"
+                "ERR0402",
+                "ERR0403",
+                "ERR0404",
+                "ERR0405",
+                "ERR0406",
+                "ERR0407"
             ]
         }
     }

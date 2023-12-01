@@ -19,4 +19,5 @@ func (srv *Server) InitRouters(r *mux.Router) {
 	)).Methods(http.MethodGet)
 
 	r.HandleFunc("/login", api.MakeHTTPHandleFunc(srv.ControllerInterface.Login)).Methods(http.MethodPost)
+	r.HandleFunc("/register", api.MakeHTTPHandleFunc(srv.ControllerInterface.Register)).Methods(http.MethodPost)
 }

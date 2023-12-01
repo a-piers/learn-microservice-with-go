@@ -55,6 +55,10 @@ func ValidateJWT(tokenString string) (*jwt.Token, error) {
 	})
 }
 
+func IsStringEqual(args1, args2 string) bool {
+	return args1 == args2
+}
+
 func ValidateCheckSpaceCharacter(args ...string) bool {
 	flag := true
 

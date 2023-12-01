@@ -22,6 +22,34 @@ definitions:
     properties:
       authentication_token:
         type: string
+      id:
+        type: string
+      result:
+        $ref: '#/definitions/models.Result'
+      user_infos:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  models.UserRegisterArgs:
+    properties:
+      birth_date:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      validate_password:
+        type: string
+    type: object
+  models.UserRegisterResult:
+    properties:
       result:
         $ref: '#/definitions/models.Result'
     type: object
@@ -30,13 +58,23 @@ definitions:
     - ERR0303
     - ERR0304
     - ERR0401
+    - ERR0402
+    - ERR0403
+    - ERR0404
     - ERR0405
+    - ERR0406
+    - ERR0407
     type: string
     x-enum-varnames:
     - ERR0303
     - ERR0304
     - ERR0401
+    - ERR0402
+    - ERR0403
+    - ERR0404
     - ERR0405
+    - ERR0406
+    - ERR0407
 host: localhost:8080
 info:
   contact:
@@ -73,4 +111,26 @@ paths:
       summary: Login to your account
       tags:
       - Login
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register and create account
+      parameters:
+      - description: UserRegister
+        in: body
+        name: userModelArgs
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegisterArgs'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRegisterResult'
+      summary: Create a account
+      tags:
+      - Register
 swagger: "2.0"

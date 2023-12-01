@@ -8,7 +8,10 @@ const (
 	ERR0401 Error = "ERR0401"
 	ERR0402 Error = "ERR0402"
 	ERR0403 Error = "ERR0403"
+	ERR0404 Error = "ERR0404"
 	ERR0405 Error = "ERR0405"
+	ERR0406 Error = "ERR0406"
+	ERR0407 Error = "ERR0407"
 )
 
 func (er Error) ToDescription() string {
@@ -23,8 +26,14 @@ func (er Error) ToDescription() string {
 		return "User not found!"
 	case ERR0403:
 		return "Incorrect password!"
+	case ERR0404:
+		return "Registered user found!"
 	case ERR0405:
 		return "Error occurred while creating Authentication Credential!"
+	case ERR0406:
+		return "Password's are not same!"
+	case ERR0407:
+		return "Error occurred while creating account!"
 	default:
 		return ""
 	}
