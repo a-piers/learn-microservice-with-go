@@ -11,6 +11,20 @@ definitions:
       success:
         type: boolean
     type: object
+  models.TokenCheckArgs:
+    properties:
+      client_time:
+        type: string
+    type: object
+  models.TokenCheckResult:
+    properties:
+      client_time:
+        type: string
+      result:
+        $ref: '#/definitions/models.Result'
+      server_time:
+        type: string
+    type: object
   models.UserLoginArgs:
     properties:
       email:
@@ -110,7 +124,7 @@ paths:
             $ref: '#/definitions/models.UserLoginResult'
       summary: Login to your account
       tags:
-      - Login
+      - Auth
   /register:
     post:
       consumes:
@@ -132,5 +146,27 @@ paths:
             $ref: '#/definitions/models.UserRegisterResult'
       summary: Create a account
       tags:
-      - Register
+      - Auth
+  /token-check:
+    post:
+      consumes:
+      - application/json
+      description: Token check method for authentication
+      parameters:
+      - description: TokenCheck
+        in: body
+        name: tokenCheckArgs
+        required: true
+        schema:
+          $ref: '#/definitions/models.TokenCheckArgs'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TokenCheckResult'
+      summary: Check validity of token
+      tags:
+      - Auth
 swagger: "2.0"

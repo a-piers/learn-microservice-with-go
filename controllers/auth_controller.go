@@ -9,12 +9,13 @@ import (
 	"lib/utils"
 	"net/http"
 	"reflect"
+	"time"
 )
 
 // Login		 LoginAccount godoc
 // @Summary      Login to your account
 // @Description  Login with username and password
-// @Tags         Login
+// @Tags         Auth
 // @Accept       json
 // @Produce      json
 // @Param        userModelArgs body models.UserLoginArgs true "UserLogin"
@@ -112,7 +113,7 @@ func (controller BaseController) Login(w http.ResponseWriter, r *http.Request) e
 // Register		 RegisterAccount godoc
 // @Summary      Create a account
 // @Description  Register and create account
-// @Tags         Register
+// @Tags         Auth
 // @Accept       json
 // @Produce      json
 // @Param        userModelArgs body models.UserRegisterArgs true "UserRegister"
@@ -224,4 +225,39 @@ func (controller BaseController) Register(w http.ResponseWriter, r *http.Request
 	userRegisterResult.Result.ErrorDescription = ""
 
 	return api.WriteJSON(w, http.StatusOK, userRegisterResult)
+}
+
+// TokenCheck	 TokenValidate godoc
+// @Summary      Check validity of token
+// @Description  Token check method for authentication
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        tokenCheckArgs body models.TokenCheckArgs true "TokenCheck"
+// @Success      200  {object}  models.TokenCheckResult
+// @Router       /token-check [post]
+func (controller BaseController) TokenCheck(w http.ResponseWriter, r *http.Request) error {
+	if r.Method != http.MethodPost {
+		return fmt.Errorf("method not allowed %s", r.Method)
+	}
+
+	tokenCheckArgs := new(models.TokenCheckArgs)
+	tokenCheckResult := new(models.TokenCheckResult)
+
+	if err := json.NewDecoder(r.Body).Decode(tokenCheckArgs); err != nil {
+		tokenCheckResult.Result.Success = false
+		tokenCheckResult.Result.ErrorCode = utils.ERR0401
+		tokenCheckResult.Result.ErrorDescription = utils.ERR0401.ToDescription()
+		tokenCheckResult.Result.ErrorException = utils.ExceptionToString(err)
+
+		return api.WriteJSON(w, http.StatusOK, tokenCheckResult)
+	}
+
+	tokenCheckResult.ServerTime = time.Now().UTC()
+	tokenCheckResult.ClientTime = tokenCheckArgs.ClientTime
+	tokenCheckResult.Result.Success = true
+	tokenCheckResult.Result.ErrorCode = ""
+	tokenCheckResult.Result.ErrorDescription = ""
+
+	return api.WriteJSON(w, http.StatusOK, tokenCheckResult)
 }

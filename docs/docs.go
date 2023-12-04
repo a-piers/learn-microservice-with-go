@@ -35,7 +35,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Login"
+                    "Auth"
                 ],
                 "summary": "Login to your account",
                 "parameters": [
@@ -69,7 +69,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Register"
+                    "Auth"
                 ],
                 "summary": "Create a account",
                 "parameters": [
@@ -92,6 +92,40 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/token-check": {
+            "post": {
+                "description": "Token check method for authentication",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check validity of token",
+                "parameters": [
+                    {
+                        "description": "TokenCheck",
+                        "name": "tokenCheckArgs",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TokenCheckArgs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.TokenCheckResult"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -109,6 +143,28 @@ const docTemplate = `{
                 },
                 "success": {
                     "type": "boolean"
+                }
+            }
+        },
+        "models.TokenCheckArgs": {
+            "type": "object",
+            "properties": {
+                "client_time": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.TokenCheckResult": {
+            "type": "object",
+            "properties": {
+                "client_time": {
+                    "type": "string"
+                },
+                "result": {
+                    "$ref": "#/definitions/models.Result"
+                },
+                "server_time": {
+                    "type": "string"
                 }
             }
         },

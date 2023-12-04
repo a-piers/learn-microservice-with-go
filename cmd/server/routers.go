@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"lib/cmd/api"
+	"lib/middlewares"
 	"net/http"
 	"os"
 
@@ -20,4 +21,5 @@ func (srv *Server) InitRouters(r *mux.Router) {
 
 	r.HandleFunc("/login", api.MakeHTTPHandleFunc(srv.ControllerInterface.Login)).Methods(http.MethodPost)
 	r.HandleFunc("/register", api.MakeHTTPHandleFunc(srv.ControllerInterface.Register)).Methods(http.MethodPost)
+	r.HandleFunc("/token-check", middlewares.ProtectedJWTAuth(api.MakeHTTPHandleFunc(srv.ControllerInterface.TokenCheck))).Methods(http.MethodPost)
 }
