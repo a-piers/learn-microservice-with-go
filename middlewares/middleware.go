@@ -44,7 +44,7 @@ func parseToken(r *http.Request) (string, error) {
 }
 
 func permissionDenied(w http.ResponseWriter) error {
-	result := models.Result{}
+	result := new(models.Result)
 	result.Success = false
 	result.ErrorCode = utils.ERR0401
 	result.ErrorDescription = utils.ERR0401.ToDescription()

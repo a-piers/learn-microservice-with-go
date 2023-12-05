@@ -16,7 +16,6 @@
         "version": "1.0"
     },
     "host": "localhost:8080",
-    "basePath": "/",
     "paths": {
         "/login": {
             "post": {
@@ -88,6 +87,11 @@
         },
         "/token-check": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Token check method for authentication",
                 "consumes": [
                     "application/json"
@@ -250,6 +254,13 @@
                 "ERR0406",
                 "ERR0407"
             ]
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

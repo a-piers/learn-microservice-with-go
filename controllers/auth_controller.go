@@ -235,6 +235,7 @@ func (controller BaseController) Register(w http.ResponseWriter, r *http.Request
 // @Produce      json
 // @Param        tokenCheckArgs body models.TokenCheckArgs true "TokenCheck"
 // @Success      200  {object}  models.TokenCheckResult
+// @Security	 Bearer
 // @Router       /token-check [post]
 func (controller BaseController) TokenCheck(w http.ResponseWriter, r *http.Request) error {
 	if r.Method != http.MethodPost {

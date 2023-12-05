@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   models.Result:
     properties:
@@ -166,7 +165,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.TokenCheckResult'
+      security:
+      - Bearer: []
       summary: Check validity of token
       tags:
       - Auth
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
